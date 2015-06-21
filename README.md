@@ -3,6 +3,29 @@ Folder for the project of w3 "Getting &amp; Cleaning Data"
 
 This file explains how the script works and the codebook describing the variables used for this assignment.
 
+# CODEBOOK FOR THIS ANALYSIS
+
+DATA:
+The data used for this analysis refer to the Human Activity Recognition Using Smartphones Dataset
+Version 1.0 that can be found on https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+At this link, it is possible to download the following datasets, that I used for my assignment:
+- 'train/X_train.txt': Training set (including 70% of the observations of the experiment, i.e. 7352 obs.)
+- 'train/y_train.txt': Training labels (including the variables names of the “train” dataset)
+- 'test/X_test.txt': Test set (including 30% of the observations of the experiment, i.e. 2947 obs.)
+- 'test/y_test.txt': Test labels (including the variables names of the “test” dataset)
+Each of these datasets contain records on a 561-feature vector with time and frequency domain variables (whose domain can be found in the 'features.txt’ file). These variables refer to some activities whose domain can be found in the  'activity_labels.txt' file. Finally there was a ‘train/subject_train.txt' where each row identifies the subject who performed the activity for each window sample (there are in total 30 different subjects).
+	
+TRANSFORMATION:
+The transformation performed on this data is further explained in the following sections, each referring to a part of the exercise of Coursera.
+The names I used to call the different dataset and the combinations are here listed:
+
+ALL = TRAIN + TEST (10.299 obs. of 561 variables)
+subset = ALL – (useless variables) (10.299 obs. of 66 variables, i.e. those referring to the mean and the standard deviation)
+DATASET = ROWnamesALL + subset (10.299 obs. of 66 variables + one variables containing the activities)
+DATASET2 = DATASET – (rows of TEST) (7352 obs. of 66 variables + one variables containing the activities)
+DATASET3 = SUBJECT + DATASET2 (7352 obs. of 66 variables + one variables containing the activities + one variable containing the subjects)
+
+
 EXERCISE 1
 # 1.  Merges the training and the test sets to create one data set
 
@@ -71,4 +94,39 @@ DATASET = cbind(ROWnamesALL, subset, deparse.level = 1)
 View(DATASET)
 
 # ---------------------------------------------------#
+
+EXERCISE 4
+# 4.	Appropriately labels the data set with descriptive variable names.
+
+To do this exercise I have a look at the features.txt file which contains the variables names and I assign them to the dataset.
+
+View(DATASET)
+names(DATASET)
+
+names(DATASET)[2:67] = c("tBodyAcc-mean()-X", "tBodyAcc-mean()-Y", "tBodyAcc-mean()-Z",
+                         "tBodyAcc-std()-X", "tBodyAcc-std()-Y", "tBodyAcc-std()-Z", "tGravityAcc-mean()-X",
+                         "tGravityAcc-mean()-Y", "tGravityAcc-mean()-Z", "tGravityAcc-std()-X", "tGravityAcc-std()-Y",
+                         "tGravityAcc-std()-Z", "tBodyAccJerk-mean()-X", "tBodyAccJerk-mean()-Y", "tBodyAccJerk-mean()-Z",
+                         "tBodyAccJerk-std()-X", "tBodyAccJerk-std()-Y", "tBodyAccJerk-std()-Z", "tBodyGyro-mean()-X",
+                         "tBodyGyro-mean()-Y", "tBodyGyro-mean()-Z", "tBodyGyro-std()-X", "tBodyGyro-std()-Y",
+                         "tBodyGyro-std()-Z", "tBodyGyroJerk-mean()-X", "tBodyGyroJerk-mean()-Y", "tBodyGyroJerk-mean()-Z",
+                         "tBodyGyroJerk-std()-X", "tBodyGyroJerk-std()-Y", "tBodyGyroJerk-std()-Z", "tBodyAccMag-mean()",
+                         "tBodyAccMag-std()", "tGravityAccMag-mean()", "tGravityAccMag-std()", "tBodyAccJerkMag-mean()",
+                         "tBodyAccJerkMag-std()", "tBodyGyroMag-mean()", "tBodyGyroMag-std()", "tBodyGyroJerkMag-mean()",
+                         "tBodyGyroJerkMag-std()", "fBodyAcc-mean()-X", "fBodyAcc-mean()-Y", "fBodyAcc-mean()-Z",
+                         "fBodyAcc-std()-X", "fBodyAcc-std()-Y", "fBodyAcc-std()-Z", "fBodyAccJerk-mean()-X",
+                         "fBodyAccJerk-mean()-Y", "fBodyAccJerk-mean()-Z", "fBodyAccJerk-std()-X", "fBodyAccJerk-std()-Y",
+                         "fBodyAccJerk-std()-Z", "fBodyGyro-mean()-X", "fBodyGyro-mean()-Y", "fBodyGyro-mean()-Z",
+                         "fBodyGyro-std()-X", "fBodyGyro-std()-Y", "fBodyGyro-std()-Z", "fBodyAccMag-mean()",
+                         "fBodyAccMag-std()", "fBodyBodyAccJerkMag-mean()", "fBodyBodyAccJerkMag-std()",
+                         "fBodyBodyGyroMag-mean()", "fBodyBodyGyroMag-std()", "fBodyBodyGyroJerkMag-mean()",
+                         "fBodyBodyGyroJerkMag-std()")
+
+
+# ---------------------------------------------------#
+
+EXERCISE 5
+
+# 5.	From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
 
