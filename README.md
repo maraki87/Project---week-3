@@ -41,6 +41,34 @@ View(subset)
 # ---------------------------------------------------#
 
 EXERCISE 3
+# 3. Uses descriptive activity names to name the activities in the data set
 
+First of all, I import in R the two files containing the labels of the row names (i.e. “y_test.txt” and in “y_train.txt”) and I merge the two datasets for the train and test observations, to reconstruct the whole dataset. Opening the new dataset, I see that the activities are coded with numbers from 1 to 6. Therefore I look at the file "activity_labels.txt" to check the meaning of these different labels and I transform the names accordingly; I also assign the label “Activity” to this variable (that was initially called V1).  Finally I merge this with the dataset containing all the observations if the experiment (i.e. both the test and the train datasets).
+The code to perform these steps is the following:
+ROWnamesTRAIN = read.table("train/y_train.txt", header = FALSE, sep = ",")
+View(ROWnamesTRAIN)
 
-First of all, I have a look at the file "activity_labels.txt" to check where
+ROWnamesTEST = read.table("test/y_test.txt", header = FALSE, sep = "", dec = ".")
+View(ROWnamesTEST)
+
+ROWnamesALL = rbind(ROWnamesTRAIN, ROWnamesTEST)
+View(ROWnamesALL)
+
+unique(ROWnamesALL$V1)
+class(ROWnamesALL$V1)
+
+as.character(ROWnamesALL$V1)
+ROWnamesALL$V1[ROWnamesALL$V1 == "1"] = "WALKING"
+ROWnamesALL$V1[ROWnamesALL$V1 == "2"] = "WALKING_UPSTAIRS"
+ROWnamesALL$V1[ROWnamesALL$V1 == "3"] = "WALKING_DOWNSTAIRS"
+ROWnamesALL$V1[ROWnamesALL$V1 == "4"] = "SITTING"
+ROWnamesALL$V1[ROWnamesALL$V1 == "5"] = "STANDING"
+ROWnamesALL$V1[ROWnamesALL$V1 == "6"] = "LAYING"
+
+names(ROWnamesALL) = "Activity"
+names(ROWnamesALL)
+DATASET = cbind(ROWnamesALL, subset, deparse.level = 1)
+View(DATASET)
+
+# ---------------------------------------------------#
+
