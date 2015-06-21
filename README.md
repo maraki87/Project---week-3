@@ -151,3 +151,4 @@ DATASET3 = cbind(SUBJECT, DATASET2)
 View(DATASET3)
 
 FINAL = with(DATASET3, tapply(DATASET3[, 3:68], list(DATASET3$Subject, DATASET3$Activity), mean))
+write.table(FINAL, file = "FINAL.txt", row.name=FALSE)
