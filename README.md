@@ -129,4 +129,19 @@ EXERCISE 5
 
 # 5.	From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+For this part of the assignment, I just need the first 7352 obs. of the TRAIN dataset since these have a precise indication of who performed the activity (this info was enclosed on the "subject_train.txt" file). Therefore I imported the file with the subjects and then I selected a subset of the dataset created in Exercises 1-4, reporting just the first 7352 lines. I call this "DATASET2", which becomes "DATASET3" by adding the column for the "Subject".
+On this dataset, I finally run the function to compute the mean for each variable for each activity and each subject).
+The code to perform what above is the following:
 
+SUBJECT = read.table("train/subject_train.txt", header = FALSE, sep = "", dec = ".")
+unique(SUBJECT)
+names(SUBJECT) = "Subject"
+View(SUBJECT)
+
+DATASET2 = DATASET[1:7352, ]
+View(DATASET2)
+
+DATASET3 = cbind(SUBJECT, DATASET2)
+View(DATASET3)
+
+FINAL = with(DATASET3, tapply(DATASET3[, 3:68], list(DATASET3$Subject, DATASET3$Activity), mean))
